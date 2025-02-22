@@ -1,0 +1,376 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff8e1;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #ff9800;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+}
+
+/* Secciones */
+main {
+    width: 90%; 
+    max-width: 1200px;  
+    margin: auto;  
+    padding: 20px;
+}
+#inicio{
+    width: 90%; 
+    max-width: 1200px;  
+    margin: auto;  
+    padding: 20px;
+}
+
+
+#receta {
+    border: 2px solid #ddd;  
+    border-radius: 10px;     
+    padding: 20px;           
+    margin: 20px;            
+    background-color: #fff8e1; 
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
+    width: 100%;              
+    max-width: 1100px;        
+}
+.receta_contenedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+}
+@media screen and (max-width: 768px){
+    .receta_contenedor {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+        padding-left: 0 !important;
+    }
+    .imagen{
+         
+        border-radius: 10px; 
+        margin-left: 0 !important;
+        /*margin-top:50px;*/
+    }
+    main{
+        padding-left:0px;
+    }
+
+    #receta{
+        margin: 0px;        
+    }
+    header{
+        font-size: 20px;
+        padding-top: 40px;
+    }
+
+}
+
+.imagen {
+    width: 350px;  
+    height: auto;
+    border-radius: 10px; 
+    margin-left: 100px;
+    margin-top:50px;
+}
+
+.tabla table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.tabla th, .tabla td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.tabla th {
+    background-color: #f4a261;
+    color: white;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; 
+}
+
+footer {
+    background-color: #f4a261;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+
+/* Categorías */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #ffcc80;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+}
+#bienvenida {
+    text-align: center;
+}
+/*pagina de inicio*/
+
+.cat{
+    background-color: #ffcc80;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+.cat_contenedor{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  
+    gap: 20px; 
+}
+.cat:hover {
+    transform: translateY(-10px); /* Eleva el elemento 10px hacia arriba al hacer hover */
+}
+.img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+#titulo{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Enlaces */
+a {
+    color: #ff5722;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+/* Footer */
+footer {
+    text-align: center;
+    background-color: #ff9800;
+    color: white;
+    padding: 10px;
+}
+/*formulario*/
+
+form {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 830px;
+    margin: 50px auto;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+.fila{
+    margin-bottom: 20px;
+}
+
+button[type="button"], button[type="submit"] {
+    background-color: #f4a261;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="button"]:hover, button[type="submit"]:hover {
+    background-color: #e76f51;
+}
+
+@media screen and (max-width: 768px){
+    #tablaIngredientes {
+        width: 100%;  /* La tabla ocupará el 100% del ancho disponible */
+        font-size: 14px;  /* Ajusta el tamaño de la fuente */
+    }
+
+    #tablaIngredientes th, #tablaIngredientes td {
+        padding: 6px;  /* Ajusta el padding para que los elementos no se vean tan amontonados */
+        text-align: left;  /* Asegura que el texto se alinee a la izquierda */
+    }
+
+    #tablaIngredientes input[type="text"] {
+        width: 100%;  /* Hace que los campos de texto ocupen el 100% del ancho de la celda */
+    }
+
+    #tablaIngredientes button {
+        font-size: 12px;  /* Reduce el tamaño del botón en pantallas pequeñas */
+    }
+
+    #preparacion{
+        width: 100%;
+    }
+}
+
+/*Menu lateral desplegable*/
+
+/* El icono de menú */
+.menu-icon {
+    font-size: 30px;
+    color: #ffffff;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    position:absolute;
+    top: 20px;
+    left: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#btn-menu{
+    display: none;
+}
+
+.menu_contenedor{
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%; 
+    height: 100vh;
+    top:0;
+    left:0;
+    transition: all 500ms ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#btn-menu:checked ~ .menu_contenedor{
+    opacity: 1;
+    visibility: visible;
+
+}
+
+#btn-menu:checked ~ .menu_contenedor .menu_cont{
+    transform: translateX(0%);
+}
+.menu_cont{
+    width: 100%;;
+    max-width: 250px;
+    background: #f4a261;
+    height: 100vh;
+    position: relative;
+    transition: all 500ms ease;
+    transform: translateX(-100%);
+}
+.menu_cont nav{
+    transform: translateY(15%);
+}
+.menu_cont nav a{
+    display:block;
+    text-decoration: none;
+    padding:20px;
+    color:#000000;
+    border-left: 5px solid transparent;
+    transition: all 400ms ease;
+}
+.menu_cont nav a:hover{
+    border-left: 7px solid #ba5b1f;
+    background: #e07b39;
+}
+.icon-equis{
+    position:absolute;
+    right: 10px;
+    top:10px;
+    color:#000;
+    cursor: pointer;
+    font-size:30px;
+}
+
+/*PUBLICIDAD*/
+
+#productos-recomendados{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.producto {
+    position: relative; 
+    overflow: hidden; 
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.producto img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.producto:hover img {
+    transform: scale(1.1);
+    filter: brightness(0.7); /* Hace la imagen más clara */
+}
+
+.producto:hover{
+    transform: scale(1.1);
+}
+
+/* Estilos para el botón */
+.boton-comprar {
+    position: absolute;
+    bottom: 60%;
+    left: 35%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 165, 0, 0.9); 
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: not-allowed;
+    opacity: 0; 
+    transition: opacity 0.3s ease-in-out;
+}
+
+.producto:hover .boton-comprar {
+    opacity: 1; 
+}
+
+#titulo_publi{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.boton-otro{
+    position:relative;
+    margin-left: 530px;
+    border-radius: 5px;
+    color:white;
+    background-color: #ff9800;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor:pointer;
+}
+
