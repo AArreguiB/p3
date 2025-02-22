@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receta Sorpresa</title>
+    <link rel="stylesheet" href="../style.css"> 
+    <script src="../script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Receta Sorpresa</h1>
+        <label for="btn-menu" class="menu-icon">&#9776;</label>
+    </header>
+    <input type="checkbox" id="btn-menu" class="menu-toggle">
+    <div class="menu_contenedor">
+        <div class="menu_cont">
+            <nav>
+                <a href="../ficheros_html/index.html">Inicio</a></li>
+                <a href="../ficheros_html/recetas_rapidas.html">Recetas Rápidas</a></li>
+                <a href="../ficheros_html/recetas_partido.html">Recetas para Día de Partido</a></li>
+                <a href="../ficheros_html/postres.html">Postres Fáciles</a></li>
+                <a href="../ficheros_html/recetas_internacionales.html">Recetas Internacionales</a></li>
+                <a href="../ficheros_html/enviar_receta.html">Enviar Receta</a></li>
+                <!--<a href="receta_sorpresa.html">Receta sorpresa</a></li>-->
+            </nav>
+            <label for="btn-menu" class="icon-equis">&times;</label>
+        </div>
+    </div>
+    <main>
+        <section id="receta">
+            <h2 id="nombre">Cargando...</h2>
+            <p id="tipo"><strong>Categoría</strong> </p>
+            <p id="Nac"><strong>¿De dónde es?</strong> </p>
+            <div class="receta_contenedor">
+                <div class="tabla">    
+                    <p><strong>Ingredientes:</strong></p>
+                    <table id="ingredientes">
+                        <tr>
+                            <th>Ingrediente</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </table>
+                </div>
+                <img id="imagen" src="" alt="Imagen de la receta" class="imagen">
+            </div>
+            <p><strong>Pasos:</strong></p>
+            <ul id="pasos" style="list-style-type: none;">
+            </ul>
+        </section>
+        <button class="boton-otro" onclick="cargarReceta()">Otra receta</button>
+    </main>
+</body>
+</html>

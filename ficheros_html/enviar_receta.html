@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar receta</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        td:nth-child(2), th:nth-child(2) {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Envíanos tu receta</h1>
+        <label for="btn-menu" class="menu-icon">&#9776;</label>
+    </header>
+    <input type="checkbox" id="btn-menu" class="menu-toggle">
+    <div class="menu_contenedor">
+        <div class="menu_cont">
+            <nav>
+                <a href="../ficheros_html/index.html">Inicio</a></li>
+                <a href="../ficheros_html/recetas_rapidas.html">Recetas Rápidas</a></li>
+                <a href="../ficheros_html/recetas_partido.html">Recetas para Día de Partido</a></li>
+                <a href="../ficheros_html/postres.html">Postres Fáciles</a></li>
+                <a href="../ficheros_html/recetas_internacionales.html">Recetas Internacionales</a></li>
+                <!--<a href="enviar_receta.html">Enviar Receta</a></li>-->
+                <a href="../ficheros_html/receta_sorpresa.html">Receta sorpresa</a></li>
+            </nav>
+            <label for="btn-menu" class="icon-equis">&times;</label>
+        </div>
+    </div>
+    <main id="inicio">
+        <form id="formReceta" onsubmit="guardarReceta(event)" enctype="multipart/form-data">
+            <div class="fila">
+                <label for="nombre">Nombre de la receta:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="fila">
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="rapidas">Recetas rápidas</option>
+                    <option value="partido">Recetas para el día de partido</option>
+                    <option value="postres">Postres fáciles</option>
+                    <option value="internacionales">Recetas internacionales</option>
+                </select>
+            </div>
+
+            <div class="fila">
+                <label for="tiempo">Tiempo de preparación (min)</label>
+                <input type="text" id="tiempo" name="tiempo" required>
+            </div>
+            
+            <div class="fila">
+                <label for="dificultad">Dificultad:</label>
+                <select id="dificultad" name="dificultad">
+                    <option value="1">★☆☆☆☆</option>
+                    <option value="2">★★☆☆☆</option>
+                    <option value="3">★★★☆☆</option>
+                    <option value="4">★★★★☆</option>
+                    <option value="5">★★★★★</option>
+                </select><br>
+            </div>
+
+            <div class="fila">
+                <label>Ingredientes:</label>
+                <table id="tablaIngredientes">
+                    <thead>
+                        <tr>
+                            <th>Ingrediente</th>
+                            <th>Cantidad</th>
+                            <th>Borrar fila</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="ingredientes[]" required></td>
+                            <td><input type="text" name="cantidades[]" required></td>
+                            <td><button type="button" onclick="eliminarFila(this)">🗑️</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" onclick="agregarFila()">➕ Añadir Ingrediente</button><br>
+            </div>
+
+            <div class="fila">
+                <label for="imagen">Foto de la receta:</label><br>
+                <input type="file" id="imagen" name="imagen" accept="image/*"><br>
+            </div>
+            <div class="fila">
+                <label for="preparacion">Preparación:</label><br>
+                <textarea id="preparacion" name="preparacion" rows="30" cols="110"required></textarea><br>
+            </div>
+
+            <div class="fila">
+                <button type="submit">Guardar Receta</button>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2025 Las recetas de Ana</p>
+    </footer>
+    <script src="../script.js"></script>
+        
+</body>
+</html>
