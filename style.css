@@ -374,3 +374,32 @@ button[type="button"]:hover, button[type="submit"]:hover {
     cursor:pointer;
 }
 
+#hacer{
+    position:relative;
+    margin-left: 100px;
+    border-radius: 5px;
+    color:white;
+    background-color: #ff9800;
+    padding: 8px 16px;
+    width: 110px;
+    font-size: 14px;
+    cursor:pointer;
+}
+#borrar{
+    position:relative;
+    margin-left: 20px;
+    border-radius: 5px;
+    color:white;
+    background-color: #ff9800;
+    padding: 8px 16px;
+    width: 110px;
+    font-size: 14px;
+    cursor:pointer;
+}
+
+#gente{
+    display:grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+
+}
+

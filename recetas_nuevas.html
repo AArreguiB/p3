@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receta Sorpresa</title>
-    <link rel="stylesheet" href="style.css"> 
-    <script src="script.js" defer></script>
+    <title>Lista de Recetas Nuevas</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Receta Sorpresa</h1>
+        <h1>Lista de recetas nuevas</h1>
         <label for="btn-menu" class="menu-icon">&#9776;</label>
     </header>
     <input type="checkbox" id="btn-menu" class="menu-toggle">
@@ -18,38 +17,51 @@
             <nav>
                 <a href="index.html">Inicio</a></li>
                 <a href="recetas_rapidas.html">Recetas Rápidas</a></li>
-                <a href="recetas_partido.html">Recetas para Día de Partido</a></li>
+                <!--<a href="recetas_partido.html">Recetas para Día de Partido</a></li>-->
                 <a href="postres.html">Postres Fáciles</a></li>
                 <a href="recetas_internacionales.html">Recetas Internacionales</a></li>
                 <a href="enviar_receta.html">Enviar Receta</a></li>
-                <!--<a href="receta_sorpresa.html">Receta sorpresa</a></li>-->
+                <a href="receta_sorpresa.html">Receta sorpresa</a></li>
                 <a href="recetas_nuevas.html">Recetas de otros usuarios</a>
             </nav>
             <label for="btn-menu" class="icon-equis">&times;</label>
         </div>
     </div>
-    <main>
+
+
+    <ul id="listaRecetas"></ul>
+    <div id="detallesReceta" style="display:none;">
         <section id="receta">
-            <h2 id="nombre">Cargando...</h2>
-            <p id="tipo"><strong>Categoría</strong> </p>
-            <p id="Nac"><strong>¿De dónde es?</strong> </p>
+            <h2 id="detalleNombre"></h2>
+            <p><strong>Dificultad:</strong> <span id="detalleDificultad"></span></p>
+            <p id="detalleTiempo"></p>
             <div class="receta_contenedor">
-                <div class="tabla">    
-                    <p><strong>Ingredientes:</strong></p>
-                    <table id="ingredientes">
+                <div class="tabla">
+                    <p><strong>Ingredientes</strong></p>
+                    <table id="detalleIngredientes">
                         <tr>
                             <th>Ingrediente</th>
                             <th>Cantidad</th>
                         </tr>
                     </table>
                 </div>
-                <img id="imagen" src="" alt="Imagen de la receta" class="imagen">
+                <img id="detalleImagen" src="" alt="Foto de la receta" class="imagen">
             </div>
             <p><strong>Pasos:</strong></p>
-            <ul id="pasos" style="list-style-type: none;">
-            </ul>
+            <ul id="detallePasos" style="list-style-type: none;"></ul>
+            <div id="gente">
+                <button id="hacer" onclick="loHare(event)">¡LO HARÉ!</button>
+                <p>Cuantos usuarios harán la receta:</p>
+                <p id="cocineros">0</p>
+                <button id="borrar" onclick="Borrar(event)">Borrar receta</button>
+            </div>
         </section>
-        <button class="boton-otro" onclick="cargarReceta()">Otra receta</button>
-    </main>
+    </div>
+
+    <!--<footer>
+        <p>&copy; 2025 Las recetas de Ana</p>
+    </footer>-->
+
+    <script src="script.js"></script>
 </body>
 </html>

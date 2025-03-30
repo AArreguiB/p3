@@ -80,68 +80,289 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function cargarReceta() {
-    fetch("https://www.themealdb.com/api/json/v1/1/random.php")
-        .then(respuesta => respuesta.json())
-        .then(datos => {
-            const receta = datos.meals[0];
-            
-            document.getElementById("nombre").textContent = receta.strMeal;
+    if (window.location.pathname.includes("receta_sorpresa.html")) {
+        fetch("https://www.themealdb.com/api/json/v1/1/random.php")
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+                const receta = datos.meals[0];
+                
+                document.getElementById("nombre").textContent = receta.strMeal;
 
-            document.getElementById("tipo").innerHTML= `<strong>Categoría:</strong> ${receta.strCategory}`;
-            document.getElementById("Nac").innerHTML=`<strong>Area:</strong> ${receta.strArea}`;
-            
-            document.getElementById("imagen").src = receta.strMealThumb;
+                document.getElementById("tipo").innerHTML= `<strong>Categoría:</strong> ${receta.strCategory}`;
+                document.getElementById("Nac").innerHTML=`<strong>Area:</strong> ${receta.strArea}`;
+                
+                document.getElementById("imagen").src = receta.strMealThumb;
 
-            const listaIngredientes = document.getElementById("ingredientes");
-            const cabeceras = `
-                <tr>
-                    <th>Ingrediente</th>
-                    <th>Cantidad</th>
-                </tr>
-            `;
-            listaIngredientes.innerHTML = cabeceras;
+                const listaIngredientes = document.getElementById("ingredientes");
+                const cabeceras = `
+                    <tr>
+                        <th>Ingrediente</th>
+                        <th>Cantidad</th>
+                    </tr>
+                `;
+                listaIngredientes.innerHTML = cabeceras;
 
-            for (let i = 1; i <= 20; i++) {
-                const ingrediente = receta[`strIngredient${i}`];
-                const medida = receta[`strMeasure${i}`];
+                for (let i = 1; i <= 20; i++) {
+                    const ingrediente = receta[`strIngredient${i}`];
+                    const medida = receta[`strMeasure${i}`];
 
-                if (ingrediente && ingrediente.trim() !== "") {
-                    const fila = document.createElement("tr");
-                    const tdIngrediente = document.createElement("td");
-                    const tdCantidad = document.createElement("td");
-                    
-                    tdIngrediente.textContent = ingrediente;
-                    tdCantidad.textContent = medida;
-                    
-                    fila.appendChild(tdIngrediente);
-                    fila.appendChild(tdCantidad);
-                    listaIngredientes.appendChild(fila);
+                    if (ingrediente && ingrediente.trim() !== "") {
+                        const fila = document.createElement("tr");
+                        const tdIngrediente = document.createElement("td");
+                        const tdCantidad = document.createElement("td");
+                        
+                        tdIngrediente.textContent = ingrediente;
+                        tdCantidad.textContent = medida;
+                        
+                        fila.appendChild(tdIngrediente);
+                        fila.appendChild(tdCantidad);
+                        listaIngredientes.appendChild(fila);
+                    }
                 }
-            }
 
-            const pasos = receta.strInstructions;
-            const pasosLista = document.getElementById("pasos");
-            pasosLista.innerHTML = ""; 
+                const pasos = receta.strInstructions;
+                const pasosLista = document.getElementById("pasos");
+                pasosLista.innerHTML = ""; 
 
-            const pasosConNumeros = pasos.split("\n").map(paso => paso.trim()).filter(paso => paso.length > 0);
-            let pasosNumerados = pasosConNumeros.every(paso => paso.match(/^[0-9]+\./));
+                const pasosConNumeros = pasos.split("\n").map(paso => paso.trim()).filter(paso => paso.length > 0);
+                let pasosNumerados = pasosConNumeros.every(paso => paso.match(/^[0-9]+\./));
 
-            if (pasosNumerados) {
-                pasosConNumeros.forEach((paso, index) => {
-                    const li = document.createElement("li");
-                    li.innerHTML = `👨‍🍳  ${paso}`;
-                    pasosLista.appendChild(li);
-                });
-            } else {
-                const pasosArray = pasos.split(".").map(paso => paso.trim()).filter(paso => paso.length > 0);
-                pasosArray.forEach((paso, index) => {
-                    const li = document.createElement("li");
-                    li.innerHTML = `👨‍🍳 ${paso}.`;
-                    pasosLista.appendChild(li);
-                });
+                if (pasosNumerados) {
+                    pasosConNumeros.forEach((paso, index) => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `👨‍🍳  ${paso}`;
+                        pasosLista.appendChild(li);
+                    });
+                } else {
+                    const pasosArray = pasos.split(".").map(paso => paso.trim()).filter(paso => paso.length > 0);
+                    pasosArray.forEach((paso, index) => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `👨‍🍳 ${paso}.`;
+                        pasosLista.appendChild(li);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error al obtener la receta:", error);
+            });
+    }
+}
+
+
+function guardarReceta(event){
+
+    event.preventDefault();
+    const nombre=document.getElementById("nombre").value;
+    const categoria=document.getElementById("categoria").value;
+    const tiempo=document.getElementById("tiempo").value;
+    const dificultad=document.getElementById("dificultad").value;
+    const preparacion=document.getElementById("preparacion").value;
+    const foto=document.getElementById("imagen").value;
+
+    const ingredientes = [];
+    const filasIngredientes = document.querySelectorAll("#tablaIngredientes tbody tr");
+    filasIngredientes.forEach(fila => {
+        const ingrediente = fila.querySelector("td:nth-child(1) input").value;
+        const cantidad = fila.querySelector("td:nth-child(2) input").value;
+        ingredientes.push({ nombre: ingrediente, cantidad: cantidad });
+    });
+
+    const receta={
+        "nombre":nombre,
+        "categoria":categoria,
+        "tiempoPreparacion":tiempo,
+        "dificultad":dificultad,
+        "ingredientes":ingredientes,
+        "fotoUrl":foto,
+        "preparacion":preparacion
+    };
+
+    console.log("Objeto receta:", receta);
+
+    fetch("http://localhost:8000/api/recetas",{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(receta)
+    })
+    .then(response=>{
+        if (response.ok) {
+            return response.json(); 
+        }
+        throw new Error('Error al guardar la receta');
+    })
+    .then(data=>{
+        console.log("Receta guardada con exito");
+        alert("¡Receta guardada exitosamente!");
+
+    
+    })
+    .catch(error => {
+        console.error('Error:', error); 
+        alert("Hubo un error al guardar la receta. Intenta de nuevo.");
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+ 
+    if (window.location.pathname.includes("recetas_nuevas.html")) {
+        fetch("http://localhost:8000/api/recetas")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la solicitud');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Recetas obtenidas:", data);
+
+                const listaRecetas = document.getElementById("listaRecetas");
+
+                if (Array.isArray(data)) {
+                    data.forEach(receta => {
+                        const li = document.createElement("li");
+                        li.textContent = receta.nombre;
+                        // Al hacer clic en el nombre de la receta, se muestran los detalles
+                        li.addEventListener("click", function() {
+                            mostrarDetallesReceta(receta);
+                        });
+                        listaRecetas.appendChild(li);
+                    });
+                } else {
+                    alert("No se encontraron recetas.");
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener las recetas:', error);
+                alert("Hubo un error al cargar las recetas.");
+            });
+    }
+});
+
+function mostrarDetallesReceta(receta) {
+    // Mostrar el contenedor de detalles
+    const detallesReceta = document.getElementById("detallesReceta");
+    detallesReceta.style.display = "block"; 
+
+    // Mostrar los detalles de la receta
+    document.getElementById("detalleNombre").textContent = receta.nombre;
+    document.getElementById("detalleDificultad").textContent = "★".repeat(receta.dificultad) + "☆☆☆☆☆".slice(receta.dificultad);
+    document.getElementById("detalleTiempo").textContent = "Tiempo de preparación: " + receta.tiempoPreparacion;
+
+    // Mostrar los ingredientes en formato de tabla
+    const ingredientesTable = document.getElementById("detalleIngredientes");
+    receta.ingredientes.forEach(ingrediente => {
+        const row = document.createElement("tr");
+        const tdIngrediente = document.createElement("td");
+        const tdCantidad = document.createElement("td");
+
+        tdIngrediente.textContent = ingrediente.nombre;
+        tdCantidad.textContent = ingrediente.cantidad;
+
+        row.appendChild(tdIngrediente);
+        row.appendChild(tdCantidad);
+        ingredientesTable.appendChild(row);
+    });
+
+    document.getElementById("detalleImagen").src = receta.fotoUrl;
+
+    const pasosList = document.getElementById("detallePasos");
+    pasosList.innerHTML = ""; 
+    if (receta.preparacion) {
+        const pasosArray = receta.preparacion.split("\n\n");
+
+        // Crear elementos <li> para cada paso
+        pasosArray.forEach((paso, index) => {
+            const li = document.createElement("li");
+            li.innerHTML = `👨‍🍳 <strong>Paso ${index + 1}:</strong> ${paso.trim()}`;
+            pasosList.appendChild(li);
+        });
+    } else {
+        console.log("No se encontraron pasos en la receta.");
+    }
+}
+
+function obtenerReceta() {
+    return document.getElementById("detalleNombre").textContent;
+}
+
+function loHare(event){
+    const nombre=obtenerReceta();
+
+    const url=`http://localhost:8000/api/recetas/${encodeURIComponent(nombre)}/incremento/1`;
+
+    fetch(url, {
+        method:"PUT",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("No se pudo incrementar el contador");
+        }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById("cocineros").textContent = data.cocineros; 
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error al incrementar el contador");
+    });
+
+}
+
+function cargarReceta(nombreReceta) {
+    fetch(`/api/recetas/${nombreReceta}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("cocineros").innerText = data.cocineros; 
+        })
+        .catch(error => console.error("Error:", error));
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    let recetaNombre = document.getElementById("detalleNombre").innerText; 
+    cargarReceta(recetaNombre);
+});
+
+
+function Borrar(event){
+    const nombre=obtenerReceta();
+
+    const respuesta=confirm("¿Estas seguro de que quieres eliminar esta receta? Esta acción no se puede eliminar y podrás dejar a alguien sin probar esta deliciosa receta");
+    
+    if(respuesta){
+        const url=`http://localhost:8000/api/recetas/${encodeURIComponent(nombre)}`;
+        console.log(url);
+    
+        fetch(url,{
+            method:"DELETE",
+            headers:{
+                "Content-type":"application/json"
             }
         })
-        .catch(error => {
-            console.error("Error al obtener la receta:", error);
-        });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la eliminación: ${response.status} ${response.statusText}`);
+            }
+            return response.status === 204 ? null : response.json();
+        })
+        .then(data=>{
+            console.log("Receta eliminada correctamente: ", data);
+            alert(`RECETA ELIMINADA. NUNCA SABREMOS A QUE SABÍA ${nombre} :'(`);
+            location.reload();
+
+        })
+        .catch(error=>{
+            console.error("Error al eliminar la receta ", error);
+            alert("Hubo un error al eliminar la receta. Igual es una señal para que no la borres...");
+            location.reload();
+        })
+    } else {
+        console.log("La eliminacion de la receta ha sido cancelada");
+    }
 }
